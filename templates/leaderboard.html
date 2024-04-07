@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Leaderboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Asset/style.css') }}" rel="stylesheet">
+
+</head>
+<body style="background-color:beige;">
+    <div class="container">
+        <h1 class="text-center my-4">Golf Leaderboard 2021 - PGA Championship</h1>
+        <div class="background-image">
+            <table class="table table-striped" id="golf-leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th onclick="sortTable(3)">Score</th>
+                        <th>Total Round</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in golf_leaderboard['results']['leaderboard'] %}
+                    <tr>
+                        <td>{{ player.rank }}</td>
+                        <td>{{ player.first_name }} {{ player.last_name }}</td>
+                        <td>{{ player.country }}</td>
+                        <td>{{ player.strokes }}</td>
+                        <td>{{ player.current_round }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        var currentSortOrder = 'asc';
+
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("leaderboard");
+            switching = true;
+            // Set the sorting direction based on the current sort order
+            var direction = (currentSortOrder === 'asc') ? 1 : -1;
+
+            // Make a loop that will continue until no switching has been done
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                // Loop through all table rows (except the first, which contains table headers)
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    // Compare the two elements
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                    // Check if the two rows should switch position
+                    if (Number(x.innerHTML) > Number(y.innerHTML) && direction === 1) {
+                        shouldSwitch = true;
+                        break;
+                    } else if (Number(x.innerHTML) < Number(y.innerHTML) && direction === -1) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    // If a switch has been marked, make the switch and mark that a switch has been done
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+            // Toggle the sort order for the next sort
+            currentSortOrder = (currentSortOrder === 'asc') ? 'dsc' : 'asc';
+        }
+    </script>
+    
+</body>
+</html>

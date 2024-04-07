@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Leaderboard Data</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Asset/style.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center my-4">Golf Leaderboard Data</h1>
+    </div>
+    <div class="golf-image-container">
+        <img src="{{ url_for('static', filename='Asset/Img/golf-home.jpg') }}" alt="Golf Image" class="golf-image">
+        <div class="buttons-container">
+            <a href="/fixtures" class="btn btn-primary">View Fixtures</a>
+            <a href="/leaderboard" class="btn btn-primary">View Leaderboard</a>
+        </div>
+    </div>
+</body>
+</html>

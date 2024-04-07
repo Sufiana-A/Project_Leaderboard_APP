@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Fixtures</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Asset/style.css') }}" rel="stylesheet">
+
+</head>
+<body style="background-color:beige;">
+    <div class="container">
+        <h1 class="text-center my-4">Golf Fixtures 2021</h1>
+        <input type="text" id="search-input" placeholder="Search..." class="form-control mb-3">
+        <div class="background-image">
+            <table class="table table-striped" id="golf-fixtures-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Course</th>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fixture in golf_fixtures['results'] %}
+                    <tr>
+                        <td>{{ fixture.name }}</td>
+                        <td>{{ fixture.country }}</td>
+                        <td>{{ fixture.course }}</td>
+                        <td>{{ fixture.type }}</td>
+                        <td>{{ fixture.start_date }}</td>
+                        <td>{{ fixture.end_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', function() {
+            var searchValue = this.value.toLowerCase();
+            var tableRows = document.querySelectorAll('#golf-fixtures-table tbody tr');
+        
+            tableRows.forEach(function(row) {
+                var rowText = row.textContent.toLowerCase();
+                if (rowText.indexOf(searchValue) > -1) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+        </script>
+        
+</body>
+</html>

@@ -1,0 +1,55 @@
+.golf-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Biar gambar tidak selebar halaman */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(40, 167, 69, 0.5); 
+    padding: 100px;
+}
+
+.golf-image {
+    max-width: 100%; /* Pastikan gambar tidak selebar halaman */
+    height: auto;
+    object-fit: cover;
+}
+
+.buttons-container {
+    position: absolute;
+    bottom: 20px; /* Atur jarak dari tombol ke bagian bawah gambar */
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Atur jarak antara tombol */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.buttons-container .btn {
+    margin: 0 10px; /* Menambahkan jarak antara tombol */
+}
+#007bff
+/* Mengatur border luar tabel menjadi hijau */
+#golf-fixtures-table {
+    border-collapse: collapse; /* Menggabungkan border */
+}
+
+/* Mengatur border sel tabel menjadi hijau */
+/* #golf-fixtures-table td {
+    border: 1px solid rgba(40, 167, 69, 0.5); /* Mengatur border sel tabel menjadi hijau */
+ 
+
+#golf-fixtures-table tbody tr:nth-child(even) {
+    background-color:rgba(40, 167, 69, 0.5); /* Mengatur warna latar belakang baris genap menjadi hijau */
+}
+
+#golf-fixtures-table th {
+    border-color: black; /* Mengatur warna border menjadi hitam */
+}
+
+#golf-leaderboard-table th {
+    border-color: black; /* Mengatur warna border menjadi hitam */
+}
+
