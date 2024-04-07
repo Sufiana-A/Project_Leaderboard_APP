@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golf Leaderboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='Asset/style.css') }}" rel="stylesheet">
 
 </head>
@@ -18,7 +19,7 @@
                         <th>Rank</th>
                         <th>Name</th>
                         <th>Country</th>
-                        <th onclick="sortTable(3)">Score</th>
+                        <th onclick="sortTable(3)">Score <i class="fa fa-fw fa-sort"></i></th>
                         <th>Total Round</th>
                     </tr>
                 </thead>
@@ -38,42 +39,53 @@
     </div>
 
     <script>
-        var currentSortOrder = 'asc';
-
-        function sortTable(columnIndex) {
-            var table, rows, switching, i, x, y, shouldSwitch;
-            table = document.getElementById("leaderboard");
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("golf-leaderboard-table"); // Perbaikan ID tabel
             switching = true;
-            // Set the sorting direction based on the current sort order
-            var direction = (currentSortOrder === 'asc') ? 1 : -1;
+            dir = "asc"; // Arah awal urutan
 
-            // Make a loop that will continue until no switching has been done
             while (switching) {
                 switching = false;
                 rows = table.rows;
-                // Loop through all table rows (except the first, which contains table headers)
-                for (i = 1; i < (rows.length - 1); i++) {
+
+                for (i = 1; i < rows.length; i++) { // Perbaikan loop untuk memasukkan baris terakhir
                     shouldSwitch = false;
-                    // Compare the two elements
-                    x = rows[i].getElementsByTagName("TD")[columnIndex];
-                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
-                    // Check if the two rows should switch position
-                    if (Number(x.innerHTML) > Number(y.innerHTML) && direction === 1) {
-                        shouldSwitch = true;
-                        break;
-                    } else if (Number(x.innerHTML) < Number(y.innerHTML) && direction === -1) {
-                        shouldSwitch = true;
-                        break;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1] && rows[i + 1].getElementsByTagName("TD")[n]; // Penanganan kesalahan kalau rows[i + 1] ga ada
+                    if (y) { // y harus ada sebelum membandingkan
+                        if (dir == "asc") {
+                            if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir == "desc") {
+                            if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (shouldSwitch) {
-                    // If a switch has been marked, make the switch and mark that a switch has been done
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
+                    switchcount ++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
                 }
             }
-            // Toggle the sort order for the next sort
-            currentSortOrder = (currentSortOrder === 'asc') ? 'dsc' : 'asc';
+
+            // perbarui ikon
+            var sortIcon = document.querySelector('#golf-leaderboard-table th:nth-child(4) i');
+            if (dir === 'asc') {
+                sortIcon.className = 'fa fa-fw fa-sort-up';
+            } else {
+                sortIcon.className = 'fa fa-fw fa-sort-down';
+            }
         }
     </script>
     
