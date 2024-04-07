@@ -27,10 +27,11 @@
     text-align: center;
     padding: 20px;
 }
+
 .buttons-container .btn {
     margin: 0 10px; /* Menambahkan jarak antara tombol */
 }
-#007bff
+
 /* Mengatur border luar tabel menjadi hijau */
 #golf-fixtures-table {
     border-collapse: collapse; /* Menggabungkan border */
@@ -42,7 +43,7 @@
  
 
 #golf-fixtures-table tbody tr:nth-child(even) {
-    background-color:rgba(40, 167, 69, 0.5); /* Mengatur warna latar belakang baris genap menjadi hijau */
+    background-color:rgba(40, 167, 69, 0.5); /* Mengatur warna background baris genap menjadi hijau */
 }
 
 #golf-fixtures-table th {
@@ -53,3 +54,12 @@
     border-color: black; /* Mengatur warna border menjadi hitam */
 }
 
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-container img {
+    margin-left: 10px; /* jarak antara h1 ke gambar */
+}
